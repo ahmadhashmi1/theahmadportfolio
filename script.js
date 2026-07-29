@@ -167,7 +167,7 @@ document.querySelectorAll('.mobile-nav a').forEach(link => {
   link.addEventListener('click', closeMobileMenu);
 });
 
-/* Certificates mobile carousel */
+/* Certificates carousel (desktop + mobile) */
 (function initCertsCarousel() {
   const carousel = document.querySelector('.certs-grid');
   const prevBtn = document.querySelector('.certs-prev');
@@ -192,12 +192,15 @@ document.querySelectorAll('.mobile-nav a').forEach(link => {
   const dots = [...dotsContainer.querySelectorAll('.certs-dot')];
 
   function getActiveIndex() {
-    const scrollLeft = carousel.scrollLeft;
+    const containerRect = carousel.getBoundingClientRect();
+    const containerCenter = containerRect.left + containerRect.width / 2;
     let closestIndex = 0;
     let closestDistance = Infinity;
 
     cards.forEach((card, index) => {
-      const distance = Math.abs(card.offsetLeft - scrollLeft);
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const distance = Math.abs(cardCenter - containerCenter);
       if (distance < closestDistance) {
         closestDistance = distance;
         closestIndex = index;
