@@ -62,13 +62,14 @@
     line-height: 1.6;
   }
   
-  /* Hide global navigation while case study overlay is open */
+  /* Hide global navigation while case study overlay is open (disabled with case study)
   body.case-study-open .navbar,
   body.case-study-open .mobile-menu,
   body.case-study-open .menu-overlay,
   body.case-study-open .back-to-home-btn {
     display: none !important;
   }
+  */
   
   /* ================= HERO ================= */
   
@@ -780,7 +781,6 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding: 0.5rem 0 1rem;
-    padding-inline: max(1.5rem, calc(50% - min(210px, 50vw - 4rem)));
   }
 
   .certs-grid::-webkit-scrollbar {
@@ -791,11 +791,11 @@
      CARD WRAPPER
   ========================= */
   .cert-card {
-    flex: 0 0 min(340px, calc(100% - 1rem));
-    max-width: 420px;
-    width: min(340px, 100%);
+    flex: 0 0 calc((100% - 4rem) / 3);
+    max-width: none;
+    width: auto;
     height: 640px;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
     scroll-snap-stop: always;
     perspective: 1200px;
   }
@@ -1016,11 +1016,13 @@
 
     .certs-grid {
       gap: 1.25rem;
+      padding-inline: max(1.5rem, calc(50% - min(170px, 50vw - 3rem)));
     }
 
     .cert-card {
       flex: 0 0 calc(100% - 0.5rem);
       max-width: 340px;
+      scroll-snap-align: center;
     }
 
     .certs-carousel-btn {
@@ -1511,9 +1513,11 @@
       background-color: var(--about-color);
       padding: 2rem 0 4rem;
     }
+    /*
     .case-study{
       background-color: var(--bg-dark);
     }
+    */
     
     .projects-header {
       text-align: center;
@@ -1594,6 +1598,7 @@
     .project-actions {
       margin-top: auto;
       display: flex;
+      justify-content: center;
       gap: 0.75rem;
     }
     
@@ -1624,9 +1629,8 @@
       color: #000;
     }
     
-    /* =========================================
-       FULLSCREEN CASE STUDY OVERLAY
-       ========================================= */
+    /* Case study styles disabled */
+    @media (max-width: 0px) {
     #case-study {
       position: fixed;
       inset: 0;
@@ -1937,5 +1941,6 @@
       .case-block.split {
         grid-template-columns: 1fr;
       }
+    }
     }
     

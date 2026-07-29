@@ -191,16 +191,22 @@ document.querySelectorAll('.mobile-nav a').forEach(link => {
 
   const dots = [...dotsContainer.querySelectorAll('.certs-dot')];
 
+  const mobileQuery = window.matchMedia('(max-width: 768px)');
+
   function getActiveIndex() {
     const containerRect = carousel.getBoundingClientRect();
-    const containerCenter = containerRect.left + containerRect.width / 2;
+    const isMobile = mobileQuery.matches;
+    const reference = isMobile
+      ? containerRect.left + containerRect.width / 2
+      : containerRect.left;
+
     let closestIndex = 0;
     let closestDistance = Infinity;
 
     cards.forEach((card, index) => {
       const rect = card.getBoundingClientRect();
-      const cardCenter = rect.left + rect.width / 2;
-      const distance = Math.abs(cardCenter - containerCenter);
+      const point = isMobile ? rect.left + rect.width / 2 : rect.left;
+      const distance = Math.abs(point - reference);
       if (distance < closestDistance) {
         closestDistance = distance;
         closestIndex = index;
@@ -217,8 +223,13 @@ document.querySelectorAll('.mobile-nav a').forEach(link => {
   function scrollToIndex(index) {
     const target = cards[index];
     if (!target) return;
-    target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const inline = mobileQuery.matches ? 'center' : 'start';
+    target.scrollIntoView({ behavior: 'smooth', inline, block: 'nearest' });
     updateDots(index);
+  }
+
+  function getMaxScrollIndex() {
+    return mobileQuery.matches ? cards.length - 1 : Math.max(0, cards.length - 3);
   }
 
   prevBtn.addEventListener('click', () => {
@@ -227,7 +238,7 @@ document.querySelectorAll('.mobile-nav a').forEach(link => {
   });
 
   nextBtn.addEventListener('click', () => {
-    const nextIndex = Math.min(cards.length - 1, getActiveIndex() + 1);
+    const nextIndex = Math.min(getMaxScrollIndex(), getActiveIndex() + 1);
     scrollToIndex(nextIndex);
   });
 
