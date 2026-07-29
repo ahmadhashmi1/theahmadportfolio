@@ -1540,37 +1540,9 @@
        PROJECT GRID
        ========================================= */
     .projects-grid {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
-      padding-bottom: 1.5rem;
-      -webkit-overflow-scrolling: touch;
-
-      /* Hide scrollbar but allow scrolling */
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none;  /* IE/Edge */
-      &::-webkit-scrollbar {
-        display: none;
-      }
-
-      /* Each project-card (child) behaves as a snap point */
-      > .project-card {
-        flex: 0 0 80%;
-        max-width: 420px;
-        min-width: 290px;
-        scroll-snap-align: start;
-        margin: 0 auto;
-      }
-
-      @media (max-width: 768px) {
-        > .project-card {
-          flex: 0 0 90vw;
-          max-width: 95vw;
-          margin: 0 1vw;
-        }
-        gap: 1.5rem;
-      }
     }
     
     /* =========================================
