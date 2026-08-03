@@ -1,4 +1,4 @@
-const roles = ["Frontend Developer", "Responsive UX Developer", "Web Interface Builder","Prompt Engineer"];
+const roles = ["Frontend Developer", "Responsive UX Developer","Prompt Engineer"];
 const typeTarget = document.getElementById("typewriter");
 
 let roleIndex = 0;
